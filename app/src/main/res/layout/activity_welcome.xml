@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/healthyGreen"
     tools:context=".WelcomeActivity">
 
     <Button
@@ -15,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="137dp"
         android:layout_marginLeft="137dp"
-        android:layout_marginTop="303dp"
+        android:layout_marginTop="440dp"
         android:text="Spil" />
 
     <ImageView
@@ -27,8 +28,20 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="38dp"
         android:layout_marginLeft="38dp"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="96dp"
         app:srcCompat="@drawable/wanka_vector" />
+
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="366dp"
+        android:text="Velkommen til Galgelej"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
 
 
 </RelativeLayout>
