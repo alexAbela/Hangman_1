@@ -2,6 +2,7 @@ package com.example.hangman;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -60,17 +61,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else if (game.erSidsteBogstavKorrekt() && !game.erSpilletVundet()) {
                 Toast.makeText(this, "Du gættede rigtigt: '" + guess.getText().toString().toUpperCase() + "' er i ordet.", Toast.LENGTH_SHORT).show();
             } else if (game.erSpilletVundet()) {
-                Toast.makeText(this, "Du vandt!!", Toast.LENGTH_SHORT).show();
-                giveUpButton.setVisibility(View.INVISIBLE);
+                Intent winIntent = new Intent(this, WinningActivity.class);
+                startActivity(winIntent);
+                /*Toast.makeText(this, "Du vandt!!", Toast.LENGTH_SHORT).show();
+                giveUpButton.setVisibility(View.INVISIBLE);*/
             } else if (game.erSpilletTabt()) {
-                Toast.makeText(this, "Du har tabt :/ Ordet var " + game.getOrdet(), Toast.LENGTH_SHORT).show();
+                Intent loseIntent = new Intent(this,LosingActivity.class);
+                startActivity(loseIntent);
+                /*Toast.makeText(this, "Du har tabt :/ Ordet var " + game.getOrdet(), Toast.LENGTH_SHORT).show();
+                giveUpButton.setVisibility(View.INVISIBLE);
+                guessButton.setVisibility(View.INVISIBLE);
+                guess.setVisibility(View.INVISIBLE);*/
             }
+            guess.setText("");
         } else if (v == giveUpButton) {
-            Toast.makeText(this, "Du har givet op! Ordet var " + game.getOrdet(), Toast.LENGTH_SHORT).show();
+            Intent loseIntent = new Intent(this,LosingActivity.class);
+            loseIntent.putExtra("losingWord",game.getOrdet());
+            startActivity(loseIntent);
+
+           /* Toast.makeText(this, "Du har givet op! Ordet var " + game.getOrdet(), Toast.LENGTH_SHORT).show();
             game.nulstil();
             imageViewChanger();
             guessedCorrectLetters.setText(game.getSynligtOrd());
-            guessedWrongLetters.setText(guessedWrongString = "");
+            guessedWrongLetters.setText(guessedWrongString = "");*/
 
         } else if (v == restartButton) {
             Toast.makeText(this, "Nyt spil!", Toast.LENGTH_SHORT).show();
