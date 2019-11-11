@@ -3,6 +3,7 @@ package com.example.hangman;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Galgelogik game = new Galgelogik();
     private Button guessButton, restartButton, giveUpButton;
-    private TextView guessedCorrectLetters, guessedWrongLetters;
+    private TextView guessedCorrectLetters, guessedWrongLetters, info;
     private String correctWord, guessedWord, guessedTotalLetters = "", guessedWrongString = "";
     private ImageView imageView;
     private EditText guess;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         guessedCorrectLetters = findViewById(R.id.guessedRightLetters);
         guessedWrongLetters = findViewById(R.id.guessedWrongLettersDisplay);
         guessedCorrectLetters.setText(game.getSynligtOrd());
+        info = findViewById(R.id.info);
 
         guessButton = findViewById(R.id.guessButton);
         guessButton.setOnClickListener(this);
@@ -40,6 +42,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         giveUpButton.setOnClickListener(this);
 
         imageView = findViewById(R.id.imageView);
+
+        info.setText("Henter ord fra DRs server....");
+        new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object... arg0) {
+                try {
+                    game.hentOrdFraDr();
+                    return "Ordene blev korrekt hentet fra DR's server";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return "Ordene blev ikke hentet korrekt: "+e;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Object resultat) {
+                info.setText("resultat: \n" + resultat);
+            }
+        }.execute();
+
+
 
 
 
@@ -69,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 giveUpButton.setVisibility(View.INVISIBLE);*/
             } else if (game.erSpilletTabt()) {
                 Intent loseIntent = new Intent(this,LosingActivity.class);
+                loseIntent.putExtra("losingWord",game.getOrdet());
                 startActivity(loseIntent);
                 /*Toast.makeText(this, "Du har tabt :/ Ordet var " + game.getOrdet(), Toast.LENGTH_SHORT).show();
                 giveUpButton.setVisibility(View.INVISIBLE);
@@ -94,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             guessedCorrectLetters.setText(game.getSynligtOrd());
             guessedWrongLetters.setText(guessedWrongString = "");
         }
+        info.setText("");
     }
 
     public void imageViewChanger() {

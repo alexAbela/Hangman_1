@@ -39,9 +39,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="366dp"
-        android:text="Velkommen til Galgelej"
+        android:text="Velkommen til Galgelej II"
         android:textColor="@color/black"
         android:textSize="24sp" />
-
 
 </RelativeLayout>
