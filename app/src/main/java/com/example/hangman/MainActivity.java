@@ -15,7 +15,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Galgelogik game = new Galgelogik();
-    private Button guessButton, restartButton, giveUpButton;
+    private Button guessButton, restartButton, giveUpButton, settingsButton;
     private TextView guessedCorrectLetters, guessedWrongLetters, info;
     private String correctWord, guessedWord, guessedTotalLetters = "", guessedWrongString = "";
     private ImageView imageView;
@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         restartButton.setOnClickListener(this);
         giveUpButton = findViewById(R.id.giveUpButton);
         giveUpButton.setOnClickListener(this);
+        settingsButton = findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(this);
 
         imageView = findViewById(R.id.imageView);
 
@@ -61,11 +63,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 info.setText("resultat: \n" + resultat);
             }
         }.execute();
-
-
-
-
-
     }
 
     public void onClick(View v) {
@@ -88,35 +85,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 winIntent.putExtra("mistakes",game.getAntalForkerteBogstaver());
                 winIntent.putExtra("word",game.getOrdet());
                 startActivity(winIntent);
-                /*Toast.makeText(this, "Du vandt!!", Toast.LENGTH_SHORT).show();
-                giveUpButton.setVisibility(View.INVISIBLE);*/
             } else if (game.erSpilletTabt()) {
                 Intent loseIntent = new Intent(this,LosingActivity.class);
                 loseIntent.putExtra("losingWord",game.getOrdet());
                 startActivity(loseIntent);
-                /*Toast.makeText(this, "Du har tabt :/ Ordet var " + game.getOrdet(), Toast.LENGTH_SHORT).show();
-                giveUpButton.setVisibility(View.INVISIBLE);
-                guessButton.setVisibility(View.INVISIBLE);
-                guess.setVisibility(View.INVISIBLE);*/
             }
             guess.setText("");
         } else if (v == giveUpButton) {
             Intent loseIntent = new Intent(this,LosingActivity.class);
             loseIntent.putExtra("losingWord",game.getOrdet());
             startActivity(loseIntent);
-
-           /* Toast.makeText(this, "Du har givet op! Ordet var " + game.getOrdet(), Toast.LENGTH_SHORT).show();
-            game.nulstil();
-            imageViewChanger();
-            guessedCorrectLetters.setText(game.getSynligtOrd());
-            guessedWrongLetters.setText(guessedWrongString = "");*/
-
         } else if (v == restartButton) {
             Toast.makeText(this, "Nyt spil!", Toast.LENGTH_SHORT).show();
             game.nulstil();
             imageViewChanger();
             guessedCorrectLetters.setText(game.getSynligtOrd());
             guessedWrongLetters.setText(guessedWrongString = "");
+        } else if (v == settingsButton) {
+            Intent settingsIntent = new Intent(this,SettingsActivity.class);
+            startActivity(settingsIntent);
+
         }
         info.setText("");
     }
