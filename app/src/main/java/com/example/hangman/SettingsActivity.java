@@ -18,7 +18,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     SharedPreferences preferences;
     TextView settingsText;
     Button save, buttonRed, buttonGreen, buttonWhite, buttonBack;
-    String colour;
+    String colour, previousColour;
 
 
 
@@ -26,6 +26,16 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        colour = preferences.getString("colour","GREEN");
+        if(colour.equalsIgnoreCase("Green")){
+            getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+        } else if (colour.equalsIgnoreCase("white")){
+            getWindow().getDecorView().setBackgroundColor(Color.WHITE);
+        } else if (colour.equalsIgnoreCase("red")){
+            getWindow().getDecorView().setBackgroundColor(Color.RED);
+        }
 
         settingsText = findViewById(R.id.settingsText);
         settingsText.setText("Hvilken farve vil du have dit spil?");
@@ -62,7 +72,12 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         } else if (view == buttonBack){
             goBack();
         } else if (view == save){
-            saveColour(colour);
+            previousColour = preferences.getString("colour","GREEN");
+            if(previousColour.equalsIgnoreCase(colour)){
+                goBack();
+            } else {
+                saveColour(colour);
+            }
         }
     }
 
