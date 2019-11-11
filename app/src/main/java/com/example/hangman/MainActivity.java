@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "Du gættede rigtigt: '" + guess.getText().toString().toUpperCase() + "' er i ordet.", Toast.LENGTH_SHORT).show();
             } else if (game.erSpilletVundet()) {
                 Intent winIntent = new Intent(this, WinningActivity.class);
+                winIntent.putExtra("mistakes",game.getAntalForkerteBogstaver());
+                winIntent.putExtra("word",game.getOrdet());
                 startActivity(winIntent);
                 /*Toast.makeText(this, "Du vandt!!", Toast.LENGTH_SHORT).show();
                 giveUpButton.setVisibility(View.INVISIBLE);*/
