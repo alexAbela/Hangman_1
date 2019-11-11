@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         imageView = findViewById(R.id.imageView);
 
+        //Henter ord fra DR's server er taget fra vejledningen fra Underviser Jacob Nordfalk
+
         info.setText("Henter ord fra DRs server....");
         new AsyncTask() {
             @Override
