@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".ChooseWordActivity"></activity>
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".LosingActivity" />
         <activity android:name=".WinningActivity" />
         <activity android:name=".MainActivity" />

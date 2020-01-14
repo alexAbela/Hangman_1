@@ -10,18 +10,18 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 
-public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button button;
-    SharedPreferences preferences;
     String colour;
+    SharedPreferences preferences;
+    Button newGameDR, newGameCustom, settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
-        button = findViewById(R.id.playButton);
-        button.setOnClickListener(this);
+        setContentView(R.layout.activity_menu);
+
+
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         colour = preferences.getString("colour","GREEN");
         if(colour.equalsIgnoreCase("Green")){
@@ -31,15 +31,33 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         } else if (colour.equalsIgnoreCase("red")){
             getWindow().getDecorView().setBackgroundColor(Color.RED);
         }
+
+        newGameDR = findViewById(R.id.NewGameDR);
+        newGameCustom = findViewById(R.id.NewGameCustom);
+        settings = findViewById(R.id.settings);
+
+        newGameDR.setOnClickListener(this);
+        newGameCustom.setOnClickListener(this);
+        settings.setOnClickListener(this);
+
+
     }
 
+    @Override
     public void onClick(View v) {
-        openMainActivity();
-    }
 
-    private void openMainActivity(){
-        Intent intent = new Intent(this, MenuActivity.class);
-        startActivity(intent);
-    }
+        if(v == newGameDR){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
 
+        }
+        if(v == newGameCustom){
+
+        }
+        if(v == settings){
+            Intent settingsIntent = new Intent(this,SettingsActivity.class);
+            startActivity(settingsIntent);
+        }
+
+    }
 }

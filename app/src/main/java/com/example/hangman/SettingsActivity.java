@@ -82,7 +82,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void goBack(){
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this,MenuActivity.class);
         startActivity(intent);
     }
 

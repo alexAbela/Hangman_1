@@ -18,7 +18,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Galgelogik game = new Galgelogik();
-    private Button guessButton, restartButton, giveUpButton, settingsButton;
+    private Button guessButton, restartButton, giveUpButton;
     private TextView guessedCorrectLetters, guessedWrongLetters, info;
     private String correctWord, guessedWord, guessedTotalLetters = "", guessedWrongString = "";
     private ImageView imageView;
@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         restartButton.setOnClickListener(this);
         giveUpButton = findViewById(R.id.giveUpButton);
         giveUpButton.setOnClickListener(this);
-        settingsButton = findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(this);
 
         imageView = findViewById(R.id.imageView);
 
@@ -78,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             protected void onPostExecute(Object resultat) {
                 info.setText("resultat: \n" + resultat);
+                game.opdaterSynligtOrd();
             }
         }.execute();
     }
@@ -118,10 +117,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             imageViewChanger();
             guessedCorrectLetters.setText(game.getSynligtOrd());
             guessedWrongLetters.setText(guessedWrongString = "");
-        } else if (v == settingsButton) {
-            Intent settingsIntent = new Intent(this,SettingsActivity.class);
-            startActivity(settingsIntent);
-
         }
         info.setText("");
     }

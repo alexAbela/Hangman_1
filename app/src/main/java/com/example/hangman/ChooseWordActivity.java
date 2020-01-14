@@ -2,26 +2,21 @@ package com.example.hangman;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.View;
-import android.widget.Button;
 
-public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class ChooseWordActivity extends AppCompatActivity {
 
-    Button button;
     SharedPreferences preferences;
     String colour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
-        button = findViewById(R.id.playButton);
-        button.setOnClickListener(this);
+        setContentView(R.layout.activity_choose_word);
+
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         colour = preferences.getString("colour","GREEN");
         if(colour.equalsIgnoreCase("Green")){
@@ -31,15 +26,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         } else if (colour.equalsIgnoreCase("red")){
             getWindow().getDecorView().setBackgroundColor(Color.RED);
         }
-    }
 
-    public void onClick(View v) {
-        openMainActivity();
-    }
 
-    private void openMainActivity(){
-        Intent intent = new Intent(this, MenuActivity.class);
-        startActivity(intent);
-    }
 
+
+    }
 }
